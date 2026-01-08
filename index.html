@@ -127,7 +127,6 @@ h1 {
   <button onclick="filterBooks('novel', this)">วรรณกรรม</button>
   <button onclick="filterBooks('self', this)">พัฒนาตนเอง</button>
   <button onclick="filterBooks('mind', this)">จิตวิทยา</button>
-  <button onclick="filterBooks('biz', this)">ธุรกิจ</button>
 </div>
 
 <div class="container" id="book-list"></div>
@@ -145,79 +144,64 @@ h1 {
 const books = [
   // วรรณกรรม
   {
-    title:"สี่แผ่นดิน",
-    author:"ม.ร.ว.คึกฤทธิ์ ปราโมช",
-    desc:"ประวัติศาสตร์ไทยผ่านชีวิตหญิงคนหนึ่ง",
-    cat:"novel",
-    cover:"https://images-se-ed.com/ws/Storage/Originals/9789740211580L.jpg"
+    title: "Norwegian Wood",
+    author: "Haruki Murakami",
+    desc: "เรื่องราวความรักและความโดดเดี่ยว",
+    cat: "novel",
+    cover: "https://covers.openlibrary.org/isbn/9780375704024-L.jpg"
   },
   {
-    title:"คำพิพากษา",
-    author:"ชาติ กอบจิตติ",
-    desc:"ศีลธรรมและการตัดสินของสังคม",
-    cat:"novel",
-    cover:"https://images-se-ed.com/ws/Storage/Originals/9789740208535L.jpg"
+    title: "1984",
+    author: "George Orwell",
+    desc: "โลกดิสโทเปียภายใต้การควบคุม",
+    cat: "novel",
+    cover: "https://covers.openlibrary.org/isbn/9780451524935-L.jpg"
   },
 
   // พัฒนาตนเอง
   {
-    title:"แค่เป็นคนธรรมดาที่มีความสุข",
-    author:"คิดมาก",
-    desc:"ความสุขจากชีวิตเรียบง่าย",
-    cat:"self",
-    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161822447L.jpg"
+    title: "Atomic Habits",
+    author: "James Clear",
+    desc: "เปลี่ยนนิสัยเล็ก ๆ ให้ชีวิตดีขึ้น",
+    cat: "self",
+    cover: "https://covers.openlibrary.org/isbn/9780735211292-L.jpg"
   },
   {
-    title:"ความสุขโดยสังเกต",
-    author:"นิ้วกลม",
-    desc:"มองโลกอย่างอ่อนโยน",
-    cat:"self",
-    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161847099L.jpg"
+    title: "The Psychology of Money",
+    author: "Morgan Housel",
+    desc: "จิตวิทยาเบื้องหลังการเงิน",
+    cat: "self",
+    cover: "https://covers.openlibrary.org/isbn/9780857197689-L.jpg"
   },
 
   // จิตวิทยา
   {
-    title:"กล้าที่จะถูกเกลียด",
-    author:"คิชิมิ อิจิโร่",
-    desc:"จิตวิทยาอาดเลอร์",
-    cat:"mind",
-    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161846993L.jpg"
+    title: "The Little Prince",
+    author: "Antoine de Saint-Exupéry",
+    desc: "นิทานปรัชญาที่อ่านได้ทุกวัย",
+    cat: "mind",
+    cover: "https://covers.openlibrary.org/isbn/9780156012195-L.jpg"
   },
   {
-    title:"โลกนี้ไม่มีใครใจร้ายกับคุณเท่าตัวคุณเอง",
-    author:"วินทร์ เลียววาริณ",
-    desc:"การเยียวยาหัวใจ",
-    cat:"mind",
-    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161852000L.jpg"
-  },
-
-  // ธุรกิจ
-  {
-    title:"คิดแบบยิว ทำแบบญี่ปุ่น",
-    author:"นิ้วกลม",
-    desc:"แนวคิดการทำงาน",
-    cat:"biz",
-    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161846573L.jpg"
-  },
-  {
-    title:"วิชาคนตัวเล็ก",
-    author:"หนุ่มเมืองจันท์",
-    desc:"บทเรียนความสำเร็จ",
-    cat:"biz",
-    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161841547L.jpg"
+    title: "Man's Search for Meaning",
+    author: "Viktor E. Frankl",
+    desc: "ความหมายของชีวิต",
+    cat: "mind",
+    cover: "https://covers.openlibrary.org/isbn/9780807014295-L.jpg"
   }
 ];
 
 const list = document.getElementById("book-list");
 
-function renderBooks(filter="all") {
+function renderBooks(filter = "all") {
   list.innerHTML = "";
   books
-    .filter(b => filter==="all" || b.cat===filter)
+    .filter(b => filter === "all" || b.cat === filter)
     .forEach(b => {
       list.innerHTML += `
       <div class="card">
-        <img src="${b.cover}">
+        <img src="${b.cover}"
+             onerror="this.src='https://covers.openlibrary.org/b/id/10909258-L.jpg'">
         <div class="card-content">
           <h3>${b.title}</h3>
           <p class="author">${b.author}</p>
