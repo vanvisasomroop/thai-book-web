@@ -15,42 +15,31 @@ body {
 
 h1 {
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-.subtitle {
+.category {
   text-align: center;
-  color: #666;
   margin-bottom: 30px;
 }
 
-/* หมวด */
-.categories {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-
-.categories button {
-  padding: 8px 16px;
+.category button {
+  margin: 5px;
+  padding: 8px 14px;
+  border: none;
   border-radius: 20px;
-  border: 1px solid #ddd;
-  background: white;
+  background: #e5e7eb;
   cursor: pointer;
 }
 
-.categories button.active {
+.category button.active {
   background: #4f46e5;
   color: white;
-  border-color: #4f46e5;
 }
 
-/* การ์ด */
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 20px;
 }
 
@@ -59,179 +48,140 @@ h1 {
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
   overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card img {
   width: 100%;
-  height: 300px;
+  height: 320px;
   object-fit: cover;
 }
 
 .card-content {
-  padding: 15px;
+  padding: 14px;
 }
 
-.card-content h3 {
-  margin: 0;
+.card-content h2 {
   font-size: 16px;
+  margin: 0;
 }
 
-.author {
-  font-size: 14px;
-  color: #777;
-  margin: 5px 0;
-}
-
-.desc {
-  font-size: 14px;
+.card-content p {
+  font-size: 13px;
   color: #555;
+  margin: 4px 0;
 }
 
-.card button {
+button.detail {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 8px;
   padding: 8px;
   border: none;
-  border-radius: 8px;
   background: #4f46e5;
   color: white;
+  border-radius: 8px;
   cursor: pointer;
 }
 
-/* modal */
-#modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  justify-content: center;
-  align-items: center;
-}
-
-#modal-box {
-  background: white;
-  padding: 20px;
-  max-width: 400px;
-  border-radius: 12px;
+button.detail:hover {
+  background: #4338ca;
 }
 </style>
 </head>
 
 <body>
 
-<h1>📚 เว็บแนะนำหนังสือ</h1>
-<p class="subtitle">เลือกอ่านตามหมวดที่คุณสนใจ</p>
+<h1>📚 หนังสือน่าอ่าน</h1>
 
-<div class="categories">
-  <button class="active" onclick="filterBooks('all', this)">ทั้งหมด</button>
-  <button onclick="filterBooks('novel', this)">วรรณกรรม</button>
-  <button onclick="filterBooks('self', this)">พัฒนาตนเอง</button>
-  <button onclick="filterBooks('mind', this)">จิตวิทยา</button>
+<div class="category">
+  <button class="active" onclick="filterBooks('all')">ทั้งหมด</button>
+  <button onclick="filterBooks('thai')">หนังสือไทย</button>
+  <button onclick="filterBooks('novel')">นิยาย</button>
+  <button onclick="filterBooks('self')">พัฒนาตนเอง</button>
 </div>
 
 <div class="container" id="book-list"></div>
 
-<!-- modal -->
-<div id="modal">
-  <div id="modal-box">
-    <h3 id="modal-title"></h3>
-    <p id="modal-text"></p>
-    <button onclick="closeModal()">ปิด</button>
-  </div>
-</div>
-
 <script>
 const books = [
-  // วรรณกรรม
   {
     title: "Norwegian Wood",
     author: "Haruki Murakami",
-    desc: "เรื่องราวความรักและความโดดเดี่ยว",
+    desc: "เรื่องราวความรักและความเหงา",
     cat: "novel",
-    cover: "https://covers.openlibrary.org/isbn/9780375704024-L.jpg"
+    cover: "https://source.unsplash.com/400x600/?novel,book"
   },
   {
     title: "1984",
     author: "George Orwell",
     desc: "โลกดิสโทเปียภายใต้การควบคุม",
     cat: "novel",
-    cover: "https://covers.openlibrary.org/isbn/9780451524935-L.jpg"
+    cover: "https://source.unsplash.com/400x600/?dystopia,book"
   },
-
-  // พัฒนาตนเอง
   {
     title: "Atomic Habits",
     author: "James Clear",
     desc: "เปลี่ยนนิสัยเล็ก ๆ ให้ชีวิตดีขึ้น",
     cat: "self",
-    cover: "https://covers.openlibrary.org/isbn/9780735211292-L.jpg"
+    cover: "https://source.unsplash.com/400x600/?self-help,book"
   },
   {
-    title: "The Psychology of Money",
-    author: "Morgan Housel",
-    desc: "จิตวิทยาเบื้องหลังการเงิน",
+    title: "คิดแบบยิว ทำแบบญี่ปุ่น",
+    author: "นิ้วกลม",
+    desc: "มุมมองชีวิตและความคิดสร้างสรรค์",
+    cat: "thai",
+    cover: "https://source.unsplash.com/400x600/?thai,book"
+  },
+  {
+    title: "ความสุขโดยสังเกต",
+    author: "นิ้วกลม",
+    desc: "ความสุขเล็ก ๆ ในชีวิตประจำวัน",
+    cat: "thai",
+    cover: "https://source.unsplash.com/400x600/?minimal,book"
+  },
+  {
+    title: "เพราะเป็นวัยรุ่นจึงเจ็บปวด",
+    author: "คิมรันโด",
+    desc: "หนังสือปลอบใจวัยเติบโต",
     cat: "self",
-    cover: "https://covers.openlibrary.org/isbn/9780857197689-L.jpg"
-  },
-
-  // จิตวิทยา
-  {
-    title: "The Little Prince",
-    author: "Antoine de Saint-Exupéry",
-    desc: "นิทานปรัชญาที่อ่านได้ทุกวัย",
-    cat: "mind",
-    cover: "https://covers.openlibrary.org/isbn/9780156012195-L.jpg"
-  },
-  {
-    title: "Man's Search for Meaning",
-    author: "Viktor E. Frankl",
-    desc: "ความหมายของชีวิต",
-    cat: "mind",
-    cover: "https://covers.openlibrary.org/isbn/9780807014295-L.jpg"
+    cover: "https://source.unsplash.com/400x600/?youth,book"
   }
 ];
 
 const list = document.getElementById("book-list");
 
-function renderBooks(filter = "all") {
+function showBooks(category) {
   list.innerHTML = "";
   books
-    .filter(b => filter === "all" || b.cat === filter)
+    .filter(b => category === "all" || b.cat === category)
     .forEach(b => {
       list.innerHTML += `
-      <div class="card">
-        <img src="${b.cover}"
-             onerror="this.src='https://covers.openlibrary.org/b/id/10909258-L.jpg'">
-        <div class="card-content">
-          <h3>${b.title}</h3>
-          <p class="author">${b.author}</p>
-          <p class="desc">${b.desc}</p>
-          <button onclick="openDetail('${b.title}','${b.desc}')">
-            ดูรายละเอียด
-          </button>
+        <div class="card">
+          <img src="${b.cover}"
+               onerror="this.src='https://source.unsplash.com/400x600/?book'">
+          <div class="card-content">
+            <h2>${b.title}</h2>
+            <p>${b.author}</p>
+            <p>${b.desc}</p>
+            <button class="detail">ดูรายละเอียด</button>
+          </div>
         </div>
-      </div>`;
+      `;
     });
 }
 
-function filterBooks(cat, btn) {
-  document.querySelectorAll(".categories button")
-    .forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  renderBooks(cat);
+function filterBooks(cat) {
+  document.querySelectorAll(".category button")
+    .forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
+  showBooks(cat);
 }
 
-function openDetail(title, text) {
-  document.getElementById("modal-title").innerText = title;
-  document.getElementById("modal-text").innerText = text;
-  document.getElementById("modal").style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
-
-renderBooks();
+showBooks("all");
 </script>
 
 </body>
