@@ -15,12 +15,23 @@ body {
 
 h1 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 22px;
+    margin: 40px 0 20px;
 }
 
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
 }
 
@@ -38,7 +49,7 @@ h1 {
 
 .card img {
     width: 100%;
-    height: 340px;
+    height: 320px;
     object-fit: cover;
 }
 
@@ -51,7 +62,13 @@ h1 {
     font-size: 18px;
 }
 
-.card-content p {
+.author {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0;
+}
+
+.desc {
     color: #555;
     font-size: 14px;
 }
@@ -65,7 +82,7 @@ button {
     font-size: 14px;
     border-radius: 8px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 button:hover {
@@ -77,6 +94,9 @@ button:hover {
 <body>
 
 <h1>📚 หนังสือน่าอ่าน</h1>
+<p class="subtitle">คัดสรรหนังสือที่อ่านแล้วได้อะไรกลับไป</p>
+
+<h2 class="section-title">วรรณกรรม</h2>
 
 <div class="container">
 
@@ -84,9 +104,11 @@ button:hover {
     <img src="https://covers.openlibrary.org/b/id/8225631-L.jpg">
     <div class="card-content">
         <h2>Norwegian Wood</h2>
-        <p>Haruki Murakami</p>
-        <p>เรื่องราวความเหงา ความรัก และการเติบโต</p>
-        <button>ดูรายละเอียด</button>
+        <p class="author">Haruki Murakami</p>
+        <p class="desc">เรื่องราวความเหงา ความรัก และการเติบโต</p>
+        <button onclick="alert('นิยายสะท้อนความโดดเดี่ยวและความทรงจำ')">
+            ดูรายละเอียด
+        </button>
     </div>
 </div>
 
@@ -94,9 +116,11 @@ button:hover {
     <img src="https://covers.openlibrary.org/b/id/7222246-L.jpg">
     <div class="card-content">
         <h2>1984</h2>
-        <p>George Orwell</p>
-        <p>โลกดิสโทเปียภายใต้การควบคุมของรัฐ</p>
-        <button>ดูรายละเอียด</button>
+        <p class="author">George Orwell</p>
+        <p class="desc">โลกดิสโทเปียภายใต้การควบคุมของรัฐ</p>
+        <button onclick="alert('นิยายการเมืองที่ยังทันสมัยจนถึงปัจจุบัน')">
+            ดูรายละเอียด
+        </button>
     </div>
 </div>
 
@@ -104,9 +128,11 @@ button:hover {
     <img src="https://covers.openlibrary.org/b/id/10523338-L.jpg">
     <div class="card-content">
         <h2>The Little Prince</h2>
-        <p>Antoine de Saint-Exupéry</p>
-        <p>นิทานปรัชญาที่อ่านได้ทุกวัย</p>
-        <button>ดูรายละเอียด</button>
+        <p class="author">Antoine de Saint-Exupéry</p>
+        <p class="desc">นิทานปรัชญาที่อ่านได้ทุกวัย</p>
+        <button onclick="alert('หนังสือที่สอนให้มองโลกด้วยหัวใจ')">
+            ดูรายละเอียด
+        </button>
     </div>
 </div>
 
