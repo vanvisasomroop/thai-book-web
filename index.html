@@ -144,28 +144,68 @@ h1 {
 <script>
 const books = [
   // วรรณกรรม
-  {title:"เวลา", author:"ชาติ กอบจิตติ", desc:"ชีวิตและการรอคอย", cat:"novel"},
-  {title:"คำพิพากษา", author:"ชาติ กอบจิตติ", desc:"ศีลธรรมในสังคม", cat:"novel"},
-  {title:"สี่แผ่นดิน", author:"ม.ร.ว.คึกฤทธิ์", desc:"ประวัติศาสตร์ผ่านชีวิตหญิงไทย", cat:"novel"},
-  {title:"ลูกอีสาน", author:"คำพูน บุญทวี", desc:"ชีวิตชนบทไทย", cat:"novel"},
+  {
+    title:"สี่แผ่นดิน",
+    author:"ม.ร.ว.คึกฤทธิ์ ปราโมช",
+    desc:"ประวัติศาสตร์ไทยผ่านชีวิตหญิงคนหนึ่ง",
+    cat:"novel",
+    cover:"https://images-se-ed.com/ws/Storage/Originals/9789740211580L.jpg"
+  },
+  {
+    title:"คำพิพากษา",
+    author:"ชาติ กอบจิตติ",
+    desc:"ศีลธรรมและการตัดสินของสังคม",
+    cat:"novel",
+    cover:"https://images-se-ed.com/ws/Storage/Originals/9789740208535L.jpg"
+  },
 
   // พัฒนาตนเอง
-  {title:"แค่เป็นคนธรรมดาที่มีความสุข", author:"คิดมาก", desc:"ความสุขเรียบง่าย", cat:"self"},
-  {title:"ความสุขโดยสังเกต", author:"นิ้วกลม", desc:"มองโลกอย่างอ่อนโยน", cat:"self"},
-  {title:"โตแล้วต้องอดทน", author:"คิดมาก", desc:"ชีวิตผู้ใหญ่", cat:"self"},
-  {title:"ใช้ชีวิตให้เบาขึ้น", author:"คิดมาก", desc:"ปล่อยวาง", cat:"self"},
+  {
+    title:"แค่เป็นคนธรรมดาที่มีความสุข",
+    author:"คิดมาก",
+    desc:"ความสุขจากชีวิตเรียบง่าย",
+    cat:"self",
+    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161822447L.jpg"
+  },
+  {
+    title:"ความสุขโดยสังเกต",
+    author:"นิ้วกลม",
+    desc:"มองโลกอย่างอ่อนโยน",
+    cat:"self",
+    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161847099L.jpg"
+  },
 
   // จิตวิทยา
-  {title:"กล้าที่จะถูกเกลียด", author:"คิชิมิ", desc:"จิตวิทยาอาดเลอร์", cat:"mind"},
-  {title:"โลกนี้ไม่มีใครใจร้ายกับคุณเท่าตัวคุณเอง", author:"วินทร์", desc:"เยียวยาหัวใจ", cat:"mind"},
-  {title:"ใจเราเลือกได้", author:"นิ้วกลม", desc:"จัดการความคิด", cat:"mind"},
-  {title:"ไม่เป็นไรนะ", author:"คิดมาก", desc:"ปลอบใจตัวเอง", cat:"mind"},
+  {
+    title:"กล้าที่จะถูกเกลียด",
+    author:"คิชิมิ อิจิโร่",
+    desc:"จิตวิทยาอาดเลอร์",
+    cat:"mind",
+    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161846993L.jpg"
+  },
+  {
+    title:"โลกนี้ไม่มีใครใจร้ายกับคุณเท่าตัวคุณเอง",
+    author:"วินทร์ เลียววาริณ",
+    desc:"การเยียวยาหัวใจ",
+    cat:"mind",
+    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161852000L.jpg"
+  },
 
   // ธุรกิจ
-  {title:"คิดแบบยิว ทำแบบญี่ปุ่น", author:"นิ้วกลม", desc:"แนวคิดการทำงาน", cat:"biz"},
-  {title:"ปลาไม่กินเหยื่อ", author:"หนุ่มเมืองจันท์", desc:"กลยุทธ์ธุรกิจ", cat:"biz"},
-  {title:"วิชาคนตัวเล็ก", author:"หนุ่มเมืองจันท์", desc:"ความสำเร็จ", cat:"biz"},
-  {title:"วิธีคิดของคนสำเร็จ", author:"นักเขียนไทย", desc:"แรงบันดาลใจ", cat:"biz"}
+  {
+    title:"คิดแบบยิว ทำแบบญี่ปุ่น",
+    author:"นิ้วกลม",
+    desc:"แนวคิดการทำงาน",
+    cat:"biz",
+    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161846573L.jpg"
+  },
+  {
+    title:"วิชาคนตัวเล็ก",
+    author:"หนุ่มเมืองจันท์",
+    desc:"บทเรียนความสำเร็จ",
+    cat:"biz",
+    cover:"https://images-se-ed.com/ws/Storage/Originals/9786161841547L.jpg"
+  }
 ];
 
 const list = document.getElementById("book-list");
@@ -177,7 +217,7 @@ function renderBooks(filter="all") {
     .forEach(b => {
       list.innerHTML += `
       <div class="card">
-        <img src="https://via.placeholder.com/300x420?text=BOOK">
+        <img src="${b.cover}">
         <div class="card-content">
           <h3>${b.title}</h3>
           <p class="author">${b.author}</p>
