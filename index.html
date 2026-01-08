@@ -25,7 +25,7 @@ h1 {
 
 .category button {
   margin: 5px;
-  padding: 8px 14px;
+  padding: 8px 16px;
   border: none;
   border-radius: 20px;
   background: #e5e7eb;
@@ -39,7 +39,7 @@ h1 {
 
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
 
@@ -57,7 +57,7 @@ h1 {
 
 .card img {
   width: 100%;
-  height: 320px;
+  height: 300px;
   object-fit: cover;
 }
 
@@ -66,7 +66,7 @@ h1 {
 }
 
 .card-content h2 {
-  font-size: 16px;
+  font-size: 15px;
   margin: 0;
 }
 
@@ -75,81 +75,68 @@ h1 {
   color: #555;
   margin: 4px 0;
 }
-
-button.detail {
-  width: 100%;
-  margin-top: 8px;
-  padding: 8px;
-  border: none;
-  background: #4f46e5;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-button.detail:hover {
-  background: #4338ca;
-}
 </style>
 </head>
 
 <body>
 
-<h1>📚 หนังสือน่าอ่าน</h1>
+<h1>📚 เว็บแนะนำหนังสือ</h1>
 
 <div class="category">
   <button class="active" onclick="filterBooks('all')">ทั้งหมด</button>
   <button onclick="filterBooks('thai')">หนังสือไทย</button>
   <button onclick="filterBooks('novel')">นิยาย</button>
   <button onclick="filterBooks('self')">พัฒนาตนเอง</button>
+  <button onclick="filterBooks('knowledge')">ความรู้ทั่วไป</button>
 </div>
 
 <div class="container" id="book-list"></div>
 
 <script>
 const books = [
-  {
-    title: "Norwegian Wood",
-    author: "Haruki Murakami",
-    desc: "เรื่องราวความรักและความเหงา",
-    cat: "novel",
-    cover: "https://source.unsplash.com/400x600/?novel,book"
-  },
-  {
-    title: "1984",
-    author: "George Orwell",
-    desc: "โลกดิสโทเปียภายใต้การควบคุม",
-    cat: "novel",
-    cover: "https://source.unsplash.com/400x600/?dystopia,book"
-  },
-  {
-    title: "Atomic Habits",
-    author: "James Clear",
-    desc: "เปลี่ยนนิสัยเล็ก ๆ ให้ชีวิตดีขึ้น",
-    cat: "self",
-    cover: "https://source.unsplash.com/400x600/?self-help,book"
-  },
-  {
-    title: "คิดแบบยิว ทำแบบญี่ปุ่น",
-    author: "นิ้วกลม",
-    desc: "มุมมองชีวิตและความคิดสร้างสรรค์",
-    cat: "thai",
-    cover: "https://source.unsplash.com/400x600/?thai,book"
-  },
-  {
-    title: "ความสุขโดยสังเกต",
-    author: "นิ้วกลม",
-    desc: "ความสุขเล็ก ๆ ในชีวิตประจำวัน",
-    cat: "thai",
-    cover: "https://source.unsplash.com/400x600/?minimal,book"
-  },
-  {
-    title: "เพราะเป็นวัยรุ่นจึงเจ็บปวด",
-    author: "คิมรันโด",
-    desc: "หนังสือปลอบใจวัยเติบโต",
-    cat: "self",
-    cover: "https://source.unsplash.com/400x600/?youth,book"
-  }
+  // ===== หนังสือไทย =====
+  {title:"ความสุขโดยสังเกต", author:"นิ้วกลม", cat:"thai"},
+  {title:"คิดแบบยิว ทำแบบญี่ปุ่น", author:"นิ้วกลม", cat:"thai"},
+  {title:"เราทุกคนล้วนเป็นมนุษย์", author:"วินทร์ เลียววาริณ", cat:"thai"},
+  {title:"ชายหนุ่มผู้ไม่ยอมเติบโต", author:"ปราย พันแสง", cat:"thai"},
+  {title:"เวลา", author:"ชาติ กอบจิตติ", cat:"thai"},
+  {title:"เพียงชายคนนี้ไม่ใช่ผู้วิเศษ", author:"วินทร์ เลียววาริณ", cat:"thai"},
+  {title:"ความน่าจะอ่าน", author:"หนุ่มเมืองจันท์", cat:"thai"},
+  {title:"แดดเช้าร้อนเกินไป", author:"รงค์ วงษ์สวรรค์", cat:"thai"},
+
+  // ===== นิยาย =====
+  {title:"Norwegian Wood", author:"Haruki Murakami", cat:"novel"},
+  {title:"Kafka on the Shore", author:"Haruki Murakami", cat:"novel"},
+  {title:"1984", author:"George Orwell", cat:"novel"},
+  {title:"Animal Farm", author:"George Orwell", cat:"novel"},
+  {title:"The Little Prince", author:"Antoine de Saint-Exupéry", cat:"novel"},
+  {title:"To Kill a Mockingbird", author:"Harper Lee", cat:"novel"},
+  {title:"The Catcher in the Rye", author:"J.D. Salinger", cat:"novel"},
+  {title:"Fahrenheit 451", author:"Ray Bradbury", cat:"novel"},
+  {title:"Pride and Prejudice", author:"Jane Austen", cat:"novel"},
+  {title:"The Great Gatsby", author:"F. Scott Fitzgerald", cat:"novel"},
+  {title:"Life of Pi", author:"Yann Martel", cat:"novel"},
+  {title:"The Alchemist", author:"Paulo Coelho", cat:"novel"},
+
+  // ===== พัฒนาตนเอง =====
+  {title:"Atomic Habits", author:"James Clear", cat:"self"},
+  {title:"The Power of Habit", author:"Charles Duhigg", cat:"self"},
+  {title:"Think Like a Monk", author:"Jay Shetty", cat:"self"},
+  {title:"Ikigai", author:"Héctor García", cat:"self"},
+  {title:"Deep Work", author:"Cal Newport", cat:"self"},
+  {title:"Grit", author:"Angela Duckworth", cat:"self"},
+  {title:"Mindset", author:"Carol Dweck", cat:"self"},
+  {title:"Start With Why", author:"Simon Sinek", cat:"self"},
+  {title:"How to Win Friends", author:"Dale Carnegie", cat:"self"},
+  {title:"Rich Dad Poor Dad", author:"Robert Kiyosaki", cat:"self"},
+
+  // ===== ความรู้ =====
+  {title:"Sapiens", author:"Yuval Noah Harari", cat:"knowledge"},
+  {title:"Homo Deus", author:"Yuval Noah Harari", cat:"knowledge"},
+  {title:"A Brief History of Time", author:"Stephen Hawking", cat:"knowledge"},
+  {title:"Thinking, Fast and Slow", author:"Daniel Kahneman", cat:"knowledge"},
+  {title:"Factfulness", author:"Hans Rosling", cat:"knowledge"},
+  {title:"The Psychology of Money", author:"Morgan Housel", cat:"knowledge"}
 ];
 
 const list = document.getElementById("book-list");
@@ -161,13 +148,10 @@ function showBooks(category) {
     .forEach(b => {
       list.innerHTML += `
         <div class="card">
-          <img src="${b.cover}"
-               onerror="this.src='https://source.unsplash.com/400x600/?book'">
+          <img src="https://placehold.co/400x600?text=BOOK">
           <div class="card-content">
             <h2>${b.title}</h2>
             <p>${b.author}</p>
-            <p>${b.desc}</p>
-            <button class="detail">ดูรายละเอียด</button>
           </div>
         </div>
       `;
