@@ -18,27 +18,24 @@ h1 {
   margin-bottom: 15px;
 }
 
-/* ===== Search ===== */
+/* Search */
 .search-box {
   text-align: center;
   margin-bottom: 20px;
 }
-
 .search-box input {
   width: 300px;
   max-width: 90%;
   padding: 10px 14px;
   border-radius: 20px;
   border: 1px solid #ccc;
-  font-size: 14px;
 }
 
-/* ===== Category ===== */
+/* Category */
 .category {
   text-align: center;
   margin-bottom: 30px;
 }
-
 .category button {
   margin: 5px;
   padding: 8px 16px;
@@ -47,19 +44,17 @@ h1 {
   background: #e5e7eb;
   cursor: pointer;
 }
-
 .category button.active {
   background: #4f46e5;
   color: white;
 }
 
-/* ===== Card ===== */
+/* Cards */
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
-
 .card {
   background: white;
   border-radius: 14px;
@@ -68,46 +63,35 @@ h1 {
   cursor: pointer;
   transition: transform 0.2s;
 }
-
 .card:hover {
   transform: translateY(-5px);
 }
-
 .card img {
   width: 100%;
   height: 300px;
   object-fit: cover;
 }
-
 .card-content {
   padding: 14px;
 }
-
 .card-content h2 {
   font-size: 15px;
   margin: 0;
 }
-
 .card-content p {
   font-size: 13px;
   color: #555;
-  margin: 4px 0;
 }
 
-/* ===== Modal ===== */
+/* Modal */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.6);
   display: none;
-  align-items: center;
   justify-content: center;
-  z-index: 1000;
+  align-items: center;
 }
-
 .modal-content {
   background: white;
   border-radius: 16px;
@@ -119,16 +103,14 @@ h1 {
   gap: 20px;
   position: relative;
 }
-
 .modal-content img {
   width: 100%;
   border-radius: 10px;
 }
-
 .close-btn {
   position: absolute;
-  top: 12px;
-  right: 16px;
+  top: 10px;
+  right: 15px;
   font-size: 22px;
   cursor: pointer;
 }
@@ -139,12 +121,10 @@ h1 {
 
 <h1>📚 เว็บแนะนำหนังสือ</h1>
 
-<!-- ===== Search ===== -->
 <div class="search-box">
   <input type="text" id="searchInput" placeholder="🔍 ค้นหาหนังสือหรือผู้เขียน..." onkeyup="updateBooks()">
 </div>
 
-<!-- ===== Category ===== -->
 <div class="category">
   <button class="active" onclick="setCategory('all', event)">ทั้งหมด</button>
   <button onclick="setCategory('thai', event)">หนังสือไทย</button>
@@ -155,7 +135,7 @@ h1 {
 
 <div class="container" id="book-list"></div>
 
-<!-- ===== Modal ===== -->
+<!-- Modal -->
 <div class="modal" id="book-modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeDetail()">✖</span>
@@ -173,46 +153,33 @@ h1 {
 let currentCategory = "all";
 
 const books = [
-  // ===== หนังสือไทย =====
-  { title:"ความสุขโดยสังเกต", author:"นิ้วกลม", cat:"thai", img:"https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1437920512i/25983498.jpg" },
-  { title:"คิดแบบยิว ทำแบบญี่ปุ่น", author:"นิ้วกลม", cat:"thai", img:"https://pttelibrary.pttplc.com/uploads/belibs/book/28/002735/cover_image/002735-cover.jpg" },
-  { title:"เวลา", author:"ชาติ กอบจิตติ", cat:"thai", img:"https://api.chulabook.com/images/pid-61212.jpg" },
-  { title:"เพียงชายคนนี้ไม่ใช่ผู้วิเศษ", author:"วินทร์ เลียววาริณ", cat:"thai", img:"https://ds.lnwfile.com/_webp_max_images/600/600/rg/5z/3p.webp" },
-  { title:"แดดเช้าร้อนเกินไป", author:"รงค์ วงษ์สวรรค์", cat:"thai", img:"https://www.asiabooks.com/media/catalog/product/cache/a5ac216be58c0cbce1cb04612ece96dc/1/0/1000237540_front_xxxl_141.jpg" },
+  { title:"ความสุขโดยสังเกต", author:"นิ้วกลม", cat:"thai",
+    img:"https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1437920512i/25983498.jpg",
+    desc:"หนังสือที่ชวนผู้อ่านมองหาความสุขจากเรื่องเล็ก ๆ รอบตัว ผ่านข้อคิดเรียบง่ายและอบอุ่น" },
 
-  // ===== นิยาย =====
-  { title:"Norwegian Wood", author:"Haruki Murakami", cat:"novel", img:"https://m.media-amazon.com/images/I/81EWHv-3HeL._AC_UF1000,1000_QL80_.jpg" },
-  { title:"Kafka on the Shore", author:"Haruki Murakami", cat:"novel", img:"https://www.asiabooks.com/media/catalog/product/cache/a5ac216be58c0cbce1cb04612ece96dc/9/7/9780099458326.jpg" },
-  { title:"1984", author:"George Orwell", cat:"novel", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROYcogVlcuRtsbpOhbapax-ENsDIB7wAKezA&s" },
-  { title:"Animal Farm", author:"George Orwell", cat:"novel", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcTa9AiYZgqOj7Q2t798c2nMICHsxTI_2uFQ&s" },
-  { title:"The Little Prince", author:"Antoine de Saint-Exupéry", cat:"novel", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-lgF6CFQtmtIiLtJLCCfFPgOKlv8yjK6U8g&s" },
-  { title:"To Kill a Mockingbird", author:"Harper Lee", cat:"novel", img:"https://m.media-amazon.com/images/I/81aY1lxk+9L._AC_UF1000,1000_QL80_.jpg" },
-  { title:"The Catcher in the Rye", author:"J.D. Salinger", cat:"novel", img:"https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1398034300i/5107.jpg" },
-  { title:"Fahrenheit 451", author:"Ray Bradbury", cat:"novel", img:"https://upload.wikimedia.org/wikipedia/en/d/db/Fahrenheit_451_1st_ed_cover.jpg" },
-  { title:"Pride and Prejudice", author:"Jane Austen", cat:"novel", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbRgeTKbJxmOeH33AjGEgVRqwWLC483B_XA&s" },
-  { title:"The Great Gatsby", author:"F. Scott Fitzgerald", cat:"novel", img:"https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg" },
-  { title:"Life of Pi", author:"Yann Martel", cat:"novel", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmz20kDIFX8JW4soV5MlJtdOWJQ0zxqJmS1g&s" },
-  { title:"The Alchemist", author:"Paulo Coelho", cat:"novel", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4T0aNvgYdBX8kfK_qYc046QFsSXhHE2NXWw&s" },
+  { title:"คิดแบบยิว ทำแบบญี่ปุ่น", author:"นิ้วกลม", cat:"thai",
+    img:"https://pttelibrary.pttplc.com/uploads/belibs/book/28/002735/cover_image/002735-cover.jpg",
+    desc:"นำแนวคิดของวัฒนธรรมยิวและญี่ปุ่นมาประยุกต์ใช้ในการใช้ชีวิตและการทำงาน" },
 
-  // ===== พัฒนาตนเอง =====
-  { title:"Atomic Habits", author:"James Clear", cat:"self", img:"https://m.media-amazon.com/images/I/81kg51XRc1L._AC_UF1000,1000_QL80_.jpg" },
-  { title:"The Power of Habit", author:"Charles Duhigg", cat:"self", img:"https://www.penguin.co.uk/_next/image?url=https%3A%2F%2Fcdn.penguin.co.uk%2Fdam-assets%2Fbooks%2F9781847946249%2F9781847946249-jacket-large.jpg&w=819&q=100" },
-  { title:"Think Like a Monk", author:"Jay Shetty", cat:"self", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeFv1UvQwIubE-oMjz9AanyRIcONHMm1Si7w&s" },
-  { title:"Ikigai", author:"Héctor García", cat:"self", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN3Y0N4oTDWoAYOweXlZMElnwKRGTYvv9Jrw&s" },
-  { title:"Deep Work", author:"Cal Newport", cat:"self", img:"https://m.media-amazon.com/images/I/71wSsgrOIhL._AC_UF350,350_QL50_.jpg" },
-  { title:"Grit", author:"Angela Duckworth", cat:"self", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM4rUYjbiAkTrtD_to0mbpaYF8Q4jFK1ViJA&s" },
-  { title:"Mindset", author:"Carol Dweck", cat:"self", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRr_Nn-r4uyyLiX8BpLekV-d8tn-_miR0AWQ&s" },
-  { title:"Start With Why", author:"Simon Sinek", cat:"self", img:"https://m.media-amazon.com/images/I/71NBZIExBCL._AC_UF1000,1000_QL80_.jpg" },
-  { title:"How to Win Friends", author:"Dale Carnegie", cat:"self", img:"https://api.chulabook.com/images/pid-196508.JPG" },
-  { title:"Rich Dad Poor Dad", author:"Robert Kiyosaki", cat:"self", img:"https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg" },
+  { title:"Norwegian Wood", author:"Haruki Murakami", cat:"novel",
+    img:"https://m.media-amazon.com/images/I/81EWHv-3HeL._AC_UF1000,1000_QL80_.jpg",
+    desc:"นิยายรักปนเศร้า เล่าเรื่องความสัมพันธ์ ความทรงจำ และการเติบโตของวัยหนุ่มสาว" },
 
-  // ===== ความรู้ =====
-  { title:"Sapiens", author:"Yuval Noah Harari", cat:"knowledge", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScJPBpOQVqZYjHCPbomAw_lOkdjX-C-ohQhg&s" },
-  { title:"Homo Deus", author:"Yuval Noah Harari", cat:"knowledge", img:"https://www.asiabooks.com/media/catalog/product/cache/a5ac216be58c0cbce1cb04612ece96dc/9/7/9781784703936_5.jpg" },
-  { title:"A Brief History of Time", author:"Stephen Hawking", cat:"knowledge", img:"https://bci.kinokuniya.com/jsp/images/book-img/97805/97805531/9780553176988.JPG" },
-  { title:"Thinking, Fast and Slow", author:"Daniel Kahneman", cat:"knowledge", img:"https://m.media-amazon.com/images/I/61fdrEuPJwL._AC_UF1000,1000_QL80_.jpg" },
-  { title:"Factfulness", author:"Hans Rosling", cat:"knowledge", img:"https://image.makewebcdn.com/makeweb/m_1200x600/7GFEYsdVK/DefaultData/Factfulness_%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%87%E0%B9%86_%E0%B9%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B9%82%E0%B8%A5%E0%B8%81%E0%B8%94%E0%B8%B5%E0%B8%82%E0%B8%B6%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%A7%E0%B8%B1%E0%B8%99.jpg" },
-  { title:"The Psychology of Money", author:"Morgan Housel", cat:"knowledge", img:"https://m.media-amazon.com/images/I/81gC3mdNi5L._AC_UF1000,1000_QL80_.jpg" }
+  { title:"1984", author:"George Orwell", cat:"novel",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROYcogVlcuRtsbpOhbapax-ENsDIB7wAKezA&s",
+    desc:"นิยายดิสโทเปียที่สะท้อนการควบคุมเสรีภาพและอำนาจรัฐอย่างเข้มข้น" },
+
+  { title:"Atomic Habits", author:"James Clear", cat:"self",
+    img:"https://m.media-amazon.com/images/I/81kg51XRc1L._AC_UF1000,1000_QL80_.jpg",
+    desc:"อธิบายการสร้างนิสัยเล็ก ๆ ที่ทำอย่างต่อเนื่อง เพื่อเปลี่ยนชีวิตให้ดีขึ้นอย่างยั่งยืน" },
+
+  { title:"Rich Dad Poor Dad", author:"Robert Kiyosaki", cat:"self",
+    img:"https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg",
+    desc:"หนังสือการเงินที่เปลี่ยนมุมมองเรื่องเงิน รายได้ และการลงทุน" },
+
+  { title:"Sapiens", author:"Yuval Noah Harari", cat:"knowledge",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScJPBpOQVqZYjHCPbomAw_lOkdjX-C-ohQhg&s",
+    desc:"เล่าเรื่องราววิวัฒนาการของมนุษย์ ตั้งแต่อดีตจนถึงปัจจุบัน" }
 ];
 
 const list = document.getElementById("book-list");
@@ -222,29 +189,26 @@ function updateBooks() {
   const keyword = document.getElementById("searchInput").value.toLowerCase();
   list.innerHTML = "";
 
-  books
-    .filter(b =>
-      (currentCategory === "all" || b.cat === currentCategory) &&
-      (b.title.toLowerCase().includes(keyword) ||
-       b.author.toLowerCase().includes(keyword))
-    )
-    .forEach(b => {
-      list.innerHTML += `
-        <div class="card" onclick='openDetail(${JSON.stringify(b)})'>
-          <img src="${b.img}">
-          <div class="card-content">
-            <h2>${b.title}</h2>
-            <p>${b.author}</p>
-          </div>
+  books.filter(b =>
+    (currentCategory === "all" || b.cat === currentCategory) &&
+    (b.title.toLowerCase().includes(keyword) ||
+     b.author.toLowerCase().includes(keyword))
+  ).forEach(b => {
+    list.innerHTML += `
+      <div class="card" onclick='openDetail(${JSON.stringify(b)})'>
+        <img src="${b.img}">
+        <div class="card-content">
+          <h2>${b.title}</h2>
+          <p>${b.author}</p>
         </div>
-      `;
-    });
+      </div>
+    `;
+  });
 }
 
 function setCategory(cat, event) {
   currentCategory = cat;
-  document.querySelectorAll(".category button")
-    .forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".category button").forEach(b => b.classList.remove("active"));
   event.target.classList.add("active");
   updateBooks();
 }
