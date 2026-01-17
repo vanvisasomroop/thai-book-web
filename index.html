@@ -15,9 +15,25 @@ body {
 
 h1 {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
+/* ===== Search ===== */
+.search-box {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  max-width: 90%;
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* ===== Category ===== */
 .category {
   text-align: center;
   margin-bottom: 30px;
@@ -37,6 +53,7 @@ h1 {
   color: white;
 }
 
+/* ===== Card ===== */
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -48,6 +65,7 @@ h1 {
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
   overflow: hidden;
+  cursor: pointer;
   transition: transform 0.2s;
 }
 
@@ -59,7 +77,6 @@ h1 {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  background: #eee;
 }
 
 .card-content {
@@ -76,6 +93,45 @@ h1 {
   color: #555;
   margin: 4px 0;
 }
+
+/* ===== Modal ===== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  max-width: 750px;
+  width: 90%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  position: relative;
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  cursor: pointer;
+}
 </style>
 </head>
 
@@ -83,17 +139,39 @@ h1 {
 
 <h1>📚 เว็บแนะนำหนังสือ</h1>
 
+<!-- ===== Search ===== -->
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="🔍 ค้นหาหนังสือหรือผู้เขียน..." onkeyup="updateBooks()">
+</div>
+
+<!-- ===== Category ===== -->
 <div class="category">
-  <button class="active" onclick="filterBooks('all')">ทั้งหมด</button>
-  <button onclick="filterBooks('thai')">หนังสือไทย</button>
-  <button onclick="filterBooks('novel')">นิยาย</button>
-  <button onclick="filterBooks('self')">พัฒนาตนเอง</button>
-  <button onclick="filterBooks('knowledge')">ความรู้ทั่วไป</button>
+  <button class="active" onclick="setCategory('all', event)">ทั้งหมด</button>
+  <button onclick="setCategory('thai', event)">หนังสือไทย</button>
+  <button onclick="setCategory('novel', event)">นิยาย</button>
+  <button onclick="setCategory('self', event)">พัฒนาตนเอง</button>
+  <button onclick="setCategory('knowledge', event)">ความรู้ทั่วไป</button>
 </div>
 
 <div class="container" id="book-list"></div>
 
+<!-- ===== Modal ===== -->
+<div class="modal" id="book-modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeDetail()">✖</span>
+    <img id="modal-img">
+    <div>
+      <h2 id="modal-title"></h2>
+      <p><b>ผู้เขียน:</b> <span id="modal-author"></span></p>
+      <p><b>หมวด:</b> <span id="modal-cat"></span></p>
+      <p id="modal-desc"></p>
+    </div>
+  </div>
+</div>
+
 <script>
+let currentCategory = "all";
+
 const books = [
   // ===== หนังสือไทย =====
   { title:"ความสุขโดยสังเกต", author:"นิ้วกลม", cat:"thai", img:"https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1437920512i/25983498.jpg" },
@@ -138,15 +216,22 @@ const books = [
 ];
 
 const list = document.getElementById("book-list");
+const modal = document.getElementById("book-modal");
 
-function showBooks(category) {
+function updateBooks() {
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
   list.innerHTML = "";
+
   books
-    .filter(b => category === "all" || b.cat === category)
+    .filter(b =>
+      (currentCategory === "all" || b.cat === currentCategory) &&
+      (b.title.toLowerCase().includes(keyword) ||
+       b.author.toLowerCase().includes(keyword))
+    )
     .forEach(b => {
       list.innerHTML += `
-        <div class="card">
-          <img src="${b.img || 'https://placehold.co/400x600?text=BOOK'}">
+        <div class="card" onclick='openDetail(${JSON.stringify(b)})'>
+          <img src="${b.img}">
           <div class="card-content">
             <h2>${b.title}</h2>
             <p>${b.author}</p>
@@ -156,14 +241,28 @@ function showBooks(category) {
     });
 }
 
-function filterBooks(cat) {
+function setCategory(cat, event) {
+  currentCategory = cat;
   document.querySelectorAll(".category button")
     .forEach(btn => btn.classList.remove("active"));
   event.target.classList.add("active");
-  showBooks(cat);
+  updateBooks();
 }
 
-showBooks("all");
+function openDetail(book) {
+  document.getElementById("modal-img").src = book.img;
+  document.getElementById("modal-title").innerText = book.title;
+  document.getElementById("modal-author").innerText = book.author;
+  document.getElementById("modal-cat").innerText = book.cat;
+  document.getElementById("modal-desc").innerText = book.desc;
+  modal.style.display = "flex";
+}
+
+function closeDetail() {
+  modal.style.display = "none";
+}
+
+updateBooks();
 </script>
 
 </body>
