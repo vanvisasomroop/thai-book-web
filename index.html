@@ -12,41 +12,25 @@ body {
   margin: 0;
   padding: 20px;
 }
-
-h1 {
-  text-align: center;
-  margin-bottom: 15px;
-}
+h1 { text-align: center; margin-bottom: 15px; }
 
 /* Search */
-.search-box {
-  text-align: center;
-  margin-bottom: 20px;
-}
+.search-box { text-align: center; margin-bottom: 20px; }
 .search-box input {
-  width: 300px;
-  max-width: 90%;
+  width: 300px; max-width: 90%;
   padding: 10px 14px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
+  border-radius: 20px; border: 1px solid #ccc;
 }
 
 /* Category */
-.category {
-  text-align: center;
-  margin-bottom: 30px;
-}
+.category { text-align: center; margin-bottom: 30px; }
 .category button {
-  margin: 5px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-  background: #e5e7eb;
-  cursor: pointer;
+  margin: 5px; padding: 8px 16px;
+  border: none; border-radius: 20px;
+  background: #e5e7eb; cursor: pointer;
 }
 .category button.active {
-  background: #4f46e5;
-  color: white;
+  background: #4f46e5; color: white;
 }
 
 /* Cards */
@@ -63,25 +47,15 @@ h1 {
   cursor: pointer;
   transition: transform 0.2s;
 }
-.card:hover {
-  transform: translateY(-5px);
-}
+.card:hover { transform: translateY(-5px); }
 .card img {
   width: 100%;
   height: 300px;
   object-fit: cover;
 }
-.card-content {
-  padding: 14px;
-}
-.card-content h2 {
-  font-size: 15px;
-  margin: 0;
-}
-.card-content p {
-  font-size: 13px;
-  color: #555;
-}
+.card-content { padding: 14px; }
+.card-content h2 { font-size: 15px; margin: 0; }
+.card-content p { font-size: 13px; color: #555; }
 
 /* Modal */
 .modal {
@@ -89,8 +63,8 @@ h1 {
   inset: 0;
   background: rgba(0,0,0,0.6);
   display: none;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 .modal-content {
   background: white;
@@ -103,16 +77,11 @@ h1 {
   gap: 20px;
   position: relative;
 }
-.modal-content img {
-  width: 100%;
-  border-radius: 10px;
-}
+.modal-content img { width: 100%; border-radius: 10px; }
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 22px;
-  cursor: pointer;
+  top: 10px; right: 15px;
+  font-size: 22px; cursor: pointer;
 }
 </style>
 </head>
@@ -122,7 +91,9 @@ h1 {
 <h1>📚 เว็บแนะนำหนังสือ</h1>
 
 <div class="search-box">
-  <input type="text" id="searchInput" placeholder="🔍 ค้นหาหนังสือหรือผู้เขียน..." onkeyup="updateBooks()">
+  <input type="text" id="searchInput"
+    placeholder="🔍 ค้นหาหนังสือหรือผู้เขียน..."
+    onkeyup="updateBooks()">
 </div>
 
 <div class="category">
@@ -153,33 +124,141 @@ h1 {
 let currentCategory = "all";
 
 const books = [
+  // ===== หนังสือไทย =====
   { title:"ความสุขโดยสังเกต", author:"นิ้วกลม", cat:"thai",
     img:"https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1437920512i/25983498.jpg",
-    desc:"หนังสือที่ชวนผู้อ่านมองหาความสุขจากเรื่องเล็ก ๆ รอบตัว ผ่านข้อคิดเรียบง่ายและอบอุ่น" },
+    desc:"หนังสือที่ชวนมองหาความสุขจากเรื่องเล็ก ๆ รอบตัว ผ่านมุมมองเรียบง่ายและอบอุ่น" },
 
   { title:"คิดแบบยิว ทำแบบญี่ปุ่น", author:"นิ้วกลม", cat:"thai",
     img:"https://pttelibrary.pttplc.com/uploads/belibs/book/28/002735/cover_image/002735-cover.jpg",
-    desc:"นำแนวคิดของวัฒนธรรมยิวและญี่ปุ่นมาประยุกต์ใช้ในการใช้ชีวิตและการทำงาน" },
+    desc:"ถ่ายทอดแนวคิดการคิดและการทำงานจากวัฒนธรรมยิวและญี่ปุ่น" },
 
+  { title:"เวลา", author:"ชาติ กอบจิตติ", cat:"thai",
+    img:"https://api.chulabook.com/images/pid-61212.jpg",
+    desc:"รวมเรื่องสั้นที่สะท้อนชีวิต ความคิด และกาลเวลาของมนุษย์" },
+
+  { title:"เพียงชายคนนี้ไม่ใช่ผู้วิเศษ", author:"วินทร์ เลียววาริณ", cat:"thai",
+    img:"https://ds.lnwfile.com/_webp_max_images/600/600/rg/5z/3p.webp",
+    desc:"เรื่องสั้นแนวปรัชญาที่สะท้อนความเป็นมนุษย์อย่างลึกซึ้ง" },
+
+  { title:"แดดเช้าร้อนเกินไป", author:"รงค์ วงษ์สวรรค์", cat:"thai",
+    img:"https://www.asiabooks.com/media/catalog/product/cache/a5ac216be58c0cbce1cb04612ece96dc/1/0/1000237540_front_xxxl_141.jpg",
+    desc:"บันทึกชีวิตและสังคม ผ่านภาษาที่มีเอกลักษณ์เฉพาะตัว" },
+
+  // ===== นิยาย =====
   { title:"Norwegian Wood", author:"Haruki Murakami", cat:"novel",
     img:"https://m.media-amazon.com/images/I/81EWHv-3HeL._AC_UF1000,1000_QL80_.jpg",
-    desc:"นิยายรักปนเศร้า เล่าเรื่องความสัมพันธ์ ความทรงจำ และการเติบโตของวัยหนุ่มสาว" },
+    desc:"นิยายรักปนเศร้า ว่าด้วยความทรงจำและการสูญเสีย" },
+
+  { title:"Kafka on the Shore", author:"Haruki Murakami", cat:"novel",
+    img:"https://www.asiabooks.com/media/catalog/product/cache/a5ac216be58c0cbce1cb04612ece96dc/9/7/9780099458326.jpg",
+    desc:"นิยายเหนือจริงที่ผสมผสานโลกแห่งความฝันและความจริง" },
 
   { title:"1984", author:"George Orwell", cat:"novel",
     img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROYcogVlcuRtsbpOhbapax-ENsDIB7wAKezA&s",
-    desc:"นิยายดิสโทเปียที่สะท้อนการควบคุมเสรีภาพและอำนาจรัฐอย่างเข้มข้น" },
+    desc:"สะท้อนโลกเผด็จการและการควบคุมเสรีภาพของมนุษย์" },
 
+  { title:"Animal Farm", author:"George Orwell", cat:"novel",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcTa9AiYZgqOj7Q2t798c2nMICHsxTI_2uFQ&s",
+    desc:"นิยายเสียดสีการเมืองผ่านเรื่องราวของสัตว์ในฟาร์ม" },
+
+  { title:"The Little Prince", author:"Antoine de Saint-Exupéry", cat:"novel",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-lgF6CFQtmtIiLtJLCCfFPgOKlv8yjK6U8g&s",
+    desc:"นิทานปรัชญาที่สอนให้มองโลกด้วยหัวใจ" },
+
+  { title:"To Kill a Mockingbird", author:"Harper Lee", cat:"novel",
+    img:"https://m.media-amazon.com/images/I/81aY1lxk+9L._AC_UF1000,1000_QL80_.jpg",
+    desc:"เรื่องราวของความยุติธรรมและการเหยียดเชื้อชาติ" },
+
+  { title:"The Catcher in the Rye", author:"J.D. Salinger", cat:"novel",
+    img:"https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1398034300i/5107.jpg",
+    desc:"ถ่ายทอดความสับสนและการเติบโตของวัยรุ่น" },
+
+  { title:"Fahrenheit 451", author:"Ray Bradbury", cat:"novel",
+    img:"https://upload.wikimedia.org/wikipedia/en/d/db/Fahrenheit_451_1st_ed_cover.jpg",
+    desc:"โลกอนาคตที่การอ่านหนังสือกลายเป็นสิ่งต้องห้าม" },
+
+  { title:"Pride and Prejudice", author:"Jane Austen", cat:"novel",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbRgeTKbJxmOeH33AjGEgVRqwWLC483B_XA&s",
+    desc:"นิยายคลาสสิกว่าด้วยความรักและชนชั้นทางสังคม" },
+
+  { title:"The Great Gatsby", author:"F. Scott Fitzgerald", cat:"novel",
+    img:"https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg",
+    desc:"สะท้อนความฝันแบบอเมริกันและความว่างเปล่าภายใน" },
+
+  { title:"Life of Pi", author:"Yann Martel", cat:"novel",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmz20kDIFX8JW4soV5MlJtdOWJQ0zxqJmS1g&s",
+    desc:"การผจญภัยและการตั้งคำถามเกี่ยวกับศรัทธา" },
+
+  { title:"The Alchemist", author:"Paulo Coelho", cat:"novel",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4T0aNvgYdBX8kfK_qYc046QFsSXhHE2NXWw&s",
+    desc:"นิยายสร้างแรงบันดาลใจในการตามหาความฝัน" },
+
+  // ===== พัฒนาตนเอง =====
   { title:"Atomic Habits", author:"James Clear", cat:"self",
     img:"https://m.media-amazon.com/images/I/81kg51XRc1L._AC_UF1000,1000_QL80_.jpg",
-    desc:"อธิบายการสร้างนิสัยเล็ก ๆ ที่ทำอย่างต่อเนื่อง เพื่อเปลี่ยนชีวิตให้ดีขึ้นอย่างยั่งยืน" },
+    desc:"การสร้างนิสัยเล็ก ๆ เพื่อเปลี่ยนชีวิตในระยะยาว" },
+
+  { title:"The Power of Habit", author:"Charles Duhigg", cat:"self",
+    img:"https://www.penguin.co.uk/_next/image?url=https%3A%2F%2Fcdn.penguin.co.uk%2Fdam-assets%2Fbooks%2F9781847946249%2F9781847946249-jacket-large.jpg&w=819&q=100",
+    desc:"อธิบายกลไกของนิสัยและการเปลี่ยนพฤติกรรม" },
+
+  { title:"Think Like a Monk", author:"Jay Shetty", cat:"self",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeFv1UvQwIubE-oMjz9AanyRIcONHMm1Si7w&s",
+    desc:"นำหลักคิดแบบพระมาปรับใช้ในชีวิตประจำวัน" },
+
+  { title:"Ikigai", author:"Héctor García", cat:"self",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN3Y0N4oTDWoAYOweXlZMElnwKRGTYvv9Jrw&s",
+    desc:"ค้นหาความหมายของการมีชีวิตอยู่" },
+
+  { title:"Deep Work", author:"Cal Newport", cat:"self",
+    img:"https://m.media-amazon.com/images/I/71wSsgrOIhL._AC_UF350,350_QL50_.jpg",
+    desc:"การทำงานอย่างมีสมาธิในโลกที่วอกแวก" },
+
+  { title:"Grit", author:"Angela Duckworth", cat:"self",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM4rUYjbiAkTrtD_to0mbpaYF8Q4jFK1ViJA&s",
+    desc:"ความพยายามและความอดทนคือกุญแจสู่ความสำเร็จ" },
+
+  { title:"Mindset", author:"Carol Dweck", cat:"self",
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRr_Nn-r4uyyLiX8BpLekV-d8tn-_miR0AWQ&s",
+    desc:"แนวคิดเรื่องทัศนคติที่ส่งผลต่อการพัฒนาตนเอง" },
+
+  { title:"Start With Why", author:"Simon Sinek", cat:"self",
+    img:"https://m.media-amazon.com/images/I/71NBZIExBCL._AC_UF1000,1000_QL80_.jpg",
+    desc:"การเริ่มต้นจากเหตุผลที่ทำให้คนเชื่อและศรัทธา" },
+
+  { title:"How to Win Friends", author:"Dale Carnegie", cat:"self",
+    img:"https://api.chulabook.com/images/pid-196508.JPG",
+    desc:"ศิลปะการสื่อสารและการเข้าสังคม" },
 
   { title:"Rich Dad Poor Dad", author:"Robert Kiyosaki", cat:"self",
     img:"https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg",
-    desc:"หนังสือการเงินที่เปลี่ยนมุมมองเรื่องเงิน รายได้ และการลงทุน" },
+    desc:"เปลี่ยนมุมมองด้านการเงินและการลงทุน" },
 
+  // ===== ความรู้ =====
   { title:"Sapiens", author:"Yuval Noah Harari", cat:"knowledge",
     img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScJPBpOQVqZYjHCPbomAw_lOkdjX-C-ohQhg&s",
-    desc:"เล่าเรื่องราววิวัฒนาการของมนุษย์ ตั้งแต่อดีตจนถึงปัจจุบัน" }
+    desc:"ประวัติศาสตร์มนุษยชาติจากอดีตถึงปัจจุบัน" },
+
+  { title:"Homo Deus", author:"Yuval Noah Harari", cat:"knowledge",
+    img:"https://www.asiabooks.com/media/catalog/product/cache/a5ac216be58c0cbce1cb04612ece96dc/9/7/9781784703936_5.jpg",
+    desc:"อนาคตของมนุษย์ในยุคเทคโนโลยี" },
+
+  { title:"A Brief History of Time", author:"Stephen Hawking", cat:"knowledge",
+    img:"https://bci.kinokuniya.com/jsp/images/book-img/97805/97805531/9780553176988.JPG",
+    desc:"อธิบายจักรวาลและกาลเวลาอย่างเข้าใจง่าย" },
+
+  { title:"Thinking, Fast and Slow", author:"Daniel Kahneman", cat:"knowledge",
+    img:"https://m.media-amazon.com/images/I/61fdrEuPJwL._AC_UF1000,1000_QL80_.jpg",
+    desc:"การทำงานของสมองและการตัดสินใจของมนุษย์" },
+
+  { title:"Factfulness", author:"Hans Rosling", cat:"knowledge",
+    img:"https://image.makewebcdn.com/makeweb/m_1200x600/7GFEYsdVK/DefaultData/Factfulness_%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%87%E0%B9%86_%E0%B9%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B9%82%E0%B8%A5%E0%B8%81%E0%B8%94%E0%B8%B5%E0%B8%82%E0%B8%B6%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%A7%E0%B8%B1%E0%B8%99.jpg",
+    desc:"มองโลกตามข้อเท็จจริง ลดอคติและความเข้าใจผิด" },
+
+  { title:"The Psychology of Money", author:"Morgan Housel", cat:"knowledge",
+    img:"https://m.media-amazon.com/images/I/81gC3mdNi5L._AC_UF1000,1000_QL80_.jpg",
+    desc:"จิตวิทยาเบื้องหลังการใช้เงินและการลงทุน" }
 ];
 
 const list = document.getElementById("book-list");
@@ -208,7 +287,8 @@ function updateBooks() {
 
 function setCategory(cat, event) {
   currentCategory = cat;
-  document.querySelectorAll(".category button").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".category button")
+    .forEach(btn => btn.classList.remove("active"));
   event.target.classList.add("active");
   updateBooks();
 }
